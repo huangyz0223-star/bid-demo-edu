@@ -11,7 +11,7 @@ sys.path.insert(0, project_root)
 
 # 页面配置
 st.set_page_config(
-    page_title="BID_demo - 小组研究Agent",
+    page_title="GroupMind - 小组研究Agent",
     page_icon="🎓",
     layout="wide"
 )

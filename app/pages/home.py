@@ -6,7 +6,7 @@ from utils.memory import get_project_list
 import os
 
 def show():
-    st.header("🏠 欢迎使用 BID_demo")
+    st.header("🏠 欢迎使用 GroupMind")
     
     col1, col2 = st.columns([2, 1])
     

@@ -1,4 +1,4 @@
-# BID_demo 项目记忆
+# GroupMind 项目记忆
 
 > 最后更新：2026-05-07
 > 版本：V1.0
@@ -8,7 +8,9 @@
 
 ## 一、项目概述
 
-**项目名称**：BID_demo - 商业模式教学小组研究Agent系统
+**项目名称**：GroupMind - 小组研究智能助手
+
+**原名**：BID_demo
 
 **背景**：大学内商业模式教学社团，主要活动包括讲座和小组课题研究。本项目聚焦小组研究模块的AI赋能。
 
@@ -72,27 +74,18 @@
 
 - [x] 产品设计文档
 - [x] 开发计划
-- [ ] GitHub仓库创建
-- [ ] 代码开发
-- [ ] 部署上线
+- [x] 代码开发（基础功能）
+- [x] Streamlit Cloud部署
+- [ ] API接入（MiniMax）
+- [ ] 用户系统
+- [ ] 教师端
 
 ---
 
-## 七、待确认事项
+## 七、GitHub仓库
 
-1. GitHub仓库：待创建 `bid-demo`
-2. OpenAI API Key：待提供
-
----
-
-## 八、关键文件
-
-| 文件 | 位置 |
-|------|------|
-| 项目记忆 | D:\BID_demo\PROJECT_MEMORY.md |
-| 技能指南 | D:\BID_demo\PROJECT_SKILLS.md |
-| 产品设计文档 | D:\BID_demo\产品设计文档.md |
-| 开发计划 | D:\BID_demo\开发计划.md |
+- 仓库名：bid-demo-edu（待改名：groupmind）
+- 地址：https://github.com/huangyz0223-star/bid-demo-edu
 
 ---
 
