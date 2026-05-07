@@ -3,7 +3,7 @@ ProjectAgent - 小组研究Agent核心类
 """
 from typing import Optional, Tuple
 from .memory import MemoryManager
-from .openai_client import get_openai_client
+from .llm_client import get_llm_client
 from .prompts import (
     build_system_prompt, 
     build_division_prompt, 
@@ -16,7 +16,7 @@ class ProjectAgent:
     def __init__(self, project_id: str):
         self.project_id = project_id
         self.memory = MemoryManager(project_id)
-        self.openai = get_openai_client()
+        self.llm = get_llm_client()
         self.conversation_history = []
         
         # 从Memory加载对话历史
@@ -110,7 +110,7 @@ class ProjectAgent:
         
         full_message = f"{context}\n\n【当前消息】\n{user_message}"
         
-        return self.openai.chat(system_prompt, full_message)
+        return self.llm.chat(system_prompt, full_message)
     
     def _handle_division(self) -> str:
         """处理分工请求"""
@@ -121,7 +121,7 @@ class ProjectAgent:
         prompt = build_division_prompt(members, objectives)
         system_prompt = "你是一个专业的项目管理专家，擅长根据成员特点和项目目标进行合理的任务分配。"
         
-        response = self.openai.chat(system_prompt, prompt)
+        response = self.llm.chat(system_prompt, prompt)
         
         # 更新待办事项
         if objectives and not data.get("progress", {}).get("todo"):
@@ -137,7 +137,7 @@ class ProjectAgent:
         prompt = build_agenda_prompt(data, meetings)
         system_prompt = "你是一个专业的会议主持专家，擅长设计高效的小组讨论议程。"
         
-        return self.openai.chat(system_prompt, prompt)
+        return self.llm.chat(system_prompt, prompt)
     
     def _handle_meeting(self) -> str:
         """处理会议请求"""
@@ -231,7 +231,7 @@ class ProjectAgent:
         prompt = build_meeting_summary_prompt(discussions, data)
         system_prompt = "你是一个专业的会议记录专家，擅长整理讨论要点、生成会议纪要和待办事项。"
         
-        summary = self.openai.chat(system_prompt, prompt)
+        summary = self.llm.chat(system_prompt, prompt)
         
         # 保存会议记录
         meeting_data = {

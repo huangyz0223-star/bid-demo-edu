@@ -18,9 +18,8 @@
 | 技能 | 选择 | 原因 |
 |------|------|------|
 | 前端框架 | Streamlit | Python原生，快速开发，3天可出Demo |
-| 后端服务 | FastAPI | 轻量API，异步支持 |
+| LLM | OpenAI/GLM/Claude/MiniMax | 通过配置切换 |
 | 数据库 | SQLite + JSON | 免部署，Demo够用 |
-| LLM | OpenAI GPT-4o | 成熟稳定，Demo主力 |
 
 ### 2.2 项目结构Skill
 
