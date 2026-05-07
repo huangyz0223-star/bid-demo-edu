@@ -2,7 +2,6 @@
 首页 - 项目选择
 """
 import streamlit as st
-import os
 from utils.memory import get_project_list
 
 def show():
@@ -37,7 +36,7 @@ def show():
         """)
     
     with col2:
-        st.markdown("### 📁 选择项目")
+        st.markdown("### 📁 项目列表")
         
         # 获取项目列表
         projects = get_project_list()
@@ -45,13 +44,33 @@ def show():
         if projects:
             st.success(f"已有 {len(projects)} 个项目")
             for p in projects:
-                st.markdown(f"- **{p['name']}** ({p['current_phase']})")
+                project_id = p['id']
+                project_name = p['name']
+                is_current = st.session_state.get("project_id") == project_id
+                
+                # 显示项目，带选中标记
+                label = f"**{project_name}**"
+                if is_current:
+                    label += " ✅"
+                
+                if st.button(label, key=f"select_{project_id}", use_container_width=True):
+                    # 切换到该项目
+                    st.session_state["project_id"] = project_id
+                    st.session_state["project_created"] = True
+                    st.session_state["project_name"] = project_name
+                    # 更新URL参数
+                    st.query_params["project_id"] = project_id
+                    st.rerun()
         else:
-            st.info("暂无项目，请先创建新项目")
+            st.info("暂无项目")
         
         st.markdown("---")
         st.markdown("### 🚀 快速开始")
         
         if st.button("➕ 创建新项目", type="primary", use_container_width=True):
-            st.session_state["page"] = "📝 初始化"
+            # 清除当前项目状态
+            for key in ["project_id", "project_created", "project_name", "agent", "messages"]:
+                if key in st.session_state:
+                    del st.session_state[key]
+            st.query_params.clear()
             st.rerun()
