@@ -92,10 +92,19 @@ def show():
     # 检查是否有快捷输入
     default_input = st.session_state.pop("quick_input", "")
     
-    # 输入框
-    user_input = st.chat_input("输入你的问题...", placeholder="例如：帮我们分一下工")
+    # 输入框（兼容旧版本Streamlit）
+    st.markdown("---")
+    user_input = st.text_input("输入你的问题：", key="chat_input")
     
-    if user_input or default_input:
+    col1, col2 = st.columns([1, 5])
+    with col1:
+        send_button = st.button("发送", type="primary")
+    with col2:
+        if st.button("🗑️ 清空对话"):
+            st.session_state["messages"] = []
+            st.rerun()
+    
+    if (user_input or default_input) and send_button:
         input_text = user_input or default_input
         
         # 显示用户消息
@@ -132,12 +141,7 @@ def show():
             "content": response
         })
         
+        # 清空输入框
+        st.session_state["chat_input"] = ""
+        
         st.rerun()
-    
-    # 清空对话按钮
-    st.markdown("---")
-    col1, col2 = st.columns([1, 4])
-    with col1:
-        if st.button("🗑️ 清空对话", type="secondary"):
-            st.session_state["messages"] = []
-            st.rerun()
