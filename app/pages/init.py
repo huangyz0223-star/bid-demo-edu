@@ -8,7 +8,15 @@ from utils.memory import MemoryManager
 def show():
     st.header("📝 创建新项目")
     
-    # 检查是否已有项目
+    # 检查是否已有项目（通过URL参数或session）
+    url_project_id = st.query_params.get("project_id", None)
+    if url_project_id:
+        st.session_state["project_id"] = url_project_id
+        st.session_state["project_created"] = True
+        st.session_state["project_name"] = "已有项目"
+        st.rerun()
+        return
+    
     if st.session_state.get("project_created"):
         show_success_page()
         return
@@ -102,36 +110,48 @@ def show():
                 st.session_state["project_created"] = True
                 st.session_state["project_name"] = project_name
                 
-                st.success("✅ 项目创建成功！")
+                # 跳转到带项目ID的URL
+                st.query_params["project_id"] = project_id
+                
+                st.success("✅ 项目创建成功！正在跳转...")
                 st.rerun()
 
 
 def show_success_page():
     """创建成功后的页面"""
     project_name = st.session_state.get("project_name", "项目")
+    project_id = st.session_state.get("project_id", "")
     
     st.success(f"✅ 项目「{project_name}」创建成功！")
     
     st.markdown("---")
     st.markdown("### 🎯 接下来你想做什么？")
     
+    # 构建带项目ID的URL
+    current_url = st.context.headless_url if hasattr(st, 'context') else ""
+    
     col1, col2 = st.columns(2)
     
     with col1:
         if st.button("💬 开始对话", type="primary", use_container_width=True):
+            st.query_params["project_id"] = project_id
             st.session_state["page"] = "💬 对话"
             st.rerun()
     
     with col2:
         if st.button("📊 查看状态", use_container_width=True):
+            st.query_params["project_id"] = project_id
             st.session_state["page"] = "📊 状态"
             st.rerun()
     
     st.markdown("---")
+    st.markdown(f"📎 项目ID: `{project_id}`")
     
     if st.button("🔄 创建新项目"):
         # 重置状态
         for key in ["project_id", "project_created", "project_name", "agent", "messages"]:
             if key in st.session_state:
                 del st.session_state[key]
+        # 清除URL参数
+        st.query_params.clear()
         st.rerun()

@@ -20,11 +20,30 @@ st.set_page_config(
 st.title("🎓 BID_demo - 商业模式教学小组研究Agent")
 st.markdown("---")
 
+# 从URL参数获取项目ID
+query_params = st.query_params
+url_project_id = query_params.get("project_id", None)
+
+# 如果URL有项目ID，同步到session_state
+if url_project_id:
+    st.session_state["project_id"] = url_project_id
+    st.session_state["project_created"] = True
+
 # 侧边栏导航
 st.sidebar.title("导航")
+
+# 根据是否有项目来显示不同选项
+if st.session_state.get("project_created"):
+    options = ["🏠 首页", "💬 对话", "📅 会议", "📊 状态"]
+    default_index = 1  # 默认选中对话
+else:
+    options = ["🏠 首页", "📝 初始化"]
+    default_index = 1
+
 page = st.sidebar.radio(
     "选择功能",
-    ["🏠 首页", "📝 初始化", "💬 对话", "📅 会议", "📊 状态"]
+    options,
+    index=default_index
 )
 
 # 直接导入页面模块
