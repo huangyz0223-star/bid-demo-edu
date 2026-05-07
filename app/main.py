@@ -28,31 +28,23 @@ url_project_id = query_params.get("project_id", None)
 if url_project_id:
     st.session_state["project_id"] = url_project_id
     st.session_state["project_created"] = True
+    # 加载项目名称
+    from utils.memory import MemoryManager
+    memory = MemoryManager(url_project_id)
+    project_info = memory.get_full_info()
+    st.session_state["project_name"] = project_info.get("name", "已有项目")
 
 # 侧边栏导航
-st.sidebar.title("导航")
-
-# 根据是否有项目来显示不同选项
-if st.session_state.get("project_created"):
-    options = ["🏠 首页", "💬 对话", "📅 会议", "📊 状态"]
-    default_index = 1  # 默认选中对话
-else:
-    options = ["🏠 首页", "📝 初始化"]
-    default_index = 1
-
+st.sidebar.title("📌 导航")
 page = st.sidebar.radio(
-    "选择功能",
-    options,
-    index=default_index
+    "选择页面",
+    ["🏠 首页", "💬 对话", "📅 会议", "📊 状态"]
 )
 
 # 直接导入页面模块
 if page == "🏠 首页":
     from pages import home
     home.show()
-elif page == "📝 初始化":
-    from pages import init
-    init.show()
 elif page == "💬 对话":
     from pages import chat
     chat.show()
