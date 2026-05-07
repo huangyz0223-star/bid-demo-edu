@@ -17,7 +17,7 @@ st.set_page_config(
 )
 
 # 页面标题
-st.title("🎓 BID_demo - 商业模式教学小组研究Agent")
+st.title("🎓 GroupMind - 小组研究智能助手")
 st.markdown("---")
 
 # 从URL参数获取项目ID
