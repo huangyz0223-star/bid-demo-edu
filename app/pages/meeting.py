@@ -3,7 +3,7 @@
 """
 import streamlit as st
 from datetime import datetime
-from ..utils.agent import ProjectAgent
+from utils.agent import ProjectAgent
 
 def show():
     st.header("📅 会议引导")

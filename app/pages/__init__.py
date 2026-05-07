@@ -1,8 +1,10 @@
 """
-页面模块
+页面模块 - 延迟导入避免循环依赖
 """
-from . import home
-from . import init
-from . import chat
-from . import meeting
-from . import status
+import sys
+import os
+
+# 确保项目根目录在路径中
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)

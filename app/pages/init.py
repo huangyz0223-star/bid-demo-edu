@@ -3,7 +3,7 @@
 """
 import streamlit as st
 from datetime import datetime
-from ..utils.memory import MemoryManager
+from utils.memory import MemoryManager
 
 def show():
     st.header("📝 创建新项目")

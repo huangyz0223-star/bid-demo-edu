@@ -2,7 +2,7 @@
 项目状态页面
 """
 import streamlit as st
-from ..utils.agent import ProjectAgent
+from utils.agent import ProjectAgent
 
 def show():
     st.header("📊 项目状态")

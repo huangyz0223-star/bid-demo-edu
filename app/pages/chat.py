@@ -2,7 +2,7 @@
 对话页面 - 与Agent交互
 """
 import streamlit as st
-from ..utils.agent import ProjectAgent
+from utils.agent import ProjectAgent
 from datetime import datetime
 
 def show():

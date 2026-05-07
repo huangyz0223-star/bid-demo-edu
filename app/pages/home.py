@@ -3,7 +3,7 @@
 """
 import streamlit as st
 import os
-from ..utils.memory import get_project_list
+from utils.memory import get_project_list
 
 def show():
     st.header("🏠 欢迎使用 BID_demo")
