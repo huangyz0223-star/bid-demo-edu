@@ -141,7 +141,4 @@ def show():
             "content": response
         })
         
-        # 清空输入框
-        st.session_state["chat_input"] = ""
-        
         st.rerun()
